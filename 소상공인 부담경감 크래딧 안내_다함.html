@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다함세무회계사무소 | 소상공인 부담경감 크레딧 인포그래픽</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- Application Structure Plan: The infographic follows a user-centric narrative flow, starting with the core benefit (500k KRW), then visually breaking down key information into digestible sections: Key Metrics (big numbers), Eligibility (checklist), Benefits (donut chart & icon grid), Timeline (visual bar), and Application Process (flowchart). This structure guides the user from awareness to action, which is more effective than the original document's formal, linear structure for a web-based, scannable format. -->
+    <!-- Visualization & Content Choices: 
+        - Key Benefit (500k KRW) -> Inform -> Single Big Number -> Grabs attention immediately -> HTML/Tailwind.
+        - Benefits Breakdown -> Inform -> Donut Chart -> Visualizes the total credit amount as a whole benefit -> Chart.js/Canvas.
+        - Credit Usage -> Organize -> Icon Grid -> Scannable, visual grouping of categories -> HTML/Tailwind with Unicode icons.
+        - Timeline -> Change -> HTML/CSS Timeline -> More direct and clearer for two simple date ranges than a full chart -> HTML/Tailwind.
+        - Application Steps -> Organize -> HTML/CSS Flowchart -> Visually represents a process, making it easy to follow -> HTML/Tailwind.
+        - CONFIRMING NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F0F4F8;
+        }
+        .font-black {
+            font-weight: 900;
+        }
+        .brand-blue { color: #00A9E0; }
+        .brand-orange { color: #F47920; }
+        .brand-purple { color: #7F3F98; }
+        .brand-green { color: #00A551; }
+        .brand-red { color: #ED1C24; }
+        .bg-brand-blue { background-color: #00A9E0; }
+        .bg-brand-orange { background-color: #F47920; }
+        .bg-brand-green { background-color: #00A551; }
+        .bg-brand-purple { background-color: #7F3F98; }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.375rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background-color: white;
+            border: 4px solid;
+        }
+        .timeline-line {
+            position: absolute;
+            left: -1.875rem;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #CBD5E1;
+        }
+        .flowchart-step {
+            position: relative;
+            z-index: 1;
+        }
+        .flowchart-arrow {
+            content: '▼';
+            position: absolute;
+            bottom: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: #E2E8F0;
+            z-index: 0;
+        }
+        @media (min-width: 768px) {
+            .flowchart-arrow {
+                content: '▶';
+                top: 50%;
+                left: auto;
+                right: -2.5rem;
+                bottom: auto;
+                transform: translateY(-50%);
+            }
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 320px;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-2xl my-8">
+        
+        <header class="p-8 bg-brand-blue text-white text-center rounded-t-lg">
+            <h1 class="text-2xl font-bold">다함세무회계사무소 특별 안내</h1>
+            <h2 class="text-4xl md:text-5xl font-black mt-2">소상공인 부담경감 크레딧</h2>
+            <p class="mt-4 text-lg">사장님의 멈추지 않는 열정을 위해, 정부가 든든한 힘이 되어 드립니다!</p>
+        </header>
+
+        <main class="p-6 md:p-10 space-y-12">
+
+            <section class="text-center">
+                <h3 class="text-xl font-bold text-gray-500">사업자당 지원 금액</h3>
+                <p class="font-black brand-orange" style="font-size: 6rem; line-height: 1;">50<span class="text-5xl align-baseline">만원</span></p>
+                <p class="text-lg font-bold">공과금과 4대 보험료 부담을 확 낮춰주는 크레딧을 드립니다.</p>
+            </section>
+
+            <section>
+                <div class="bg-gray-100 p-6 rounded-2xl">
+                    <h3 class="text-2xl font-bold text-center mb-6"><span class="brand-green">■</span> 지원 대상, 바로 확인하세요!</h3>
+                    <ul class="space-y-4 text-lg">
+                        <li class="flex items-start">
+                            <span class="text-2xl brand-green mr-3">✔</span>
+                            <div>
+                                <strong class="font-bold">활동 사업자:</strong> 2025년 5월 1일 이전에 개업하여 현재 영업 중인 사장님
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl brand-green mr-3">✔</span>
+                            <div>
+                                <strong class="font-bold">매출 기준:</strong> '24년 또는 '25년 연 매출액 3억원 이하
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                             <span class="text-2xl brand-green mr-3">✔</span>
+                            <div>
+                                <strong class="font-bold">제외 업종 확인:</strong> 유흥업, 사행성업 등 일부 업종 제외
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="text-center md:text-left">
+                     <h3 class="text-2xl font-bold mb-4"><span class="brand-blue">■</span> 크레딧, 어디에 사용할 수 있나요?</h3>
+                     <p class="mb-6">매달 나가는 고정비, 이제 크레딧으로 스마트하게 해결하세요. 아래 항목 결제 시 등록된 카드에서 50만원 한도 내 자동 차감됩니다.</p>
+                     <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="bg-blue-100 p-4 rounded-lg"><span class="text-3xl">💡</span><p class="font-bold mt-1">전기요금</p></div>
+                        <div class="bg-orange-100 p-4 rounded-lg"><span class="text-3xl">🔥</span><p class="font-bold mt-1">가스요금</p></div>
+                        <div class="bg-teal-100 p-4 rounded-lg"><span class="text-3xl">💧</span><p class="font-bold mt-1">수도요금</p></div>
+                        <div class="bg-purple-100 p-4 rounded-lg"><span class="text-3xl">📄</span><p class="font-bold mt-1">4대 보험료</p></div>
+                     </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="benefitChart"></canvas>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-2xl font-bold text-center mb-8"><span class="brand-purple">■</span> 놓치면 안 될 중요 일정</h3>
+                <div class="relative pl-10 py-4">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-item relative mb-8">
+                        <style> .timeline-item:nth-child(1)::before { border-color: #00A9E0; } </style>
+                        <p class="font-bold text-sm brand-blue">STEP 1. 크레딧 신청</p>
+                        <h4 class="text-xl font-bold">2025. 07. 14 (월) ~ 11. 28 (금)</h4>
+                    </div>
+                    <div class="timeline-item relative">
+                         <style> .timeline-item:nth-child(2)::before { border-color: #00A551; } </style>
+                        <p class="font-bold text-sm brand-green">STEP 2. 크레딧 사용</p>
+                        <h4 class="text-xl font-bold">2025. 07. 21 (월) ~ 12. 31 (화)</h4>
+                        <p class="text-sm text-gray-500 mt-1">※ 기간 내 미사용 잔액은 자동 소멸됩니다.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="bg-gray-100 p-6 rounded-2xl">
+                 <h3 class="text-2xl font-bold text-center mb-6"><span class="brand-orange">■</span> 초간편! 온라인 신청 방법</h3>
+                 <div class="grid md:grid-cols-3 gap-6 text-center">
+                     <div class="flowchart-step">
+                         <div class="bg-white p-6 rounded-xl shadow-md h-full flex flex-col justify-center">
+                            <p class="bg-brand-orange text-white w-10 h-10 flex items-center justify-center rounded-full text-xl font-bold mx-auto mb-3">1</p>
+                            <h4 class="font-bold text-lg">사이트 접속</h4>
+                            <p class="text-sm">부담경감크레딧.kr 온라인 접속</p>
+                         </div>
+                         <div class="flowchart-arrow"></div>
+                     </div>
+                     <div class="flowchart-step">
+                         <div class="bg-white p-6 rounded-xl shadow-md h-full flex flex-col justify-center">
+                            <p class="bg-brand-orange text-white w-10 h-10 flex items-center justify-center rounded-full text-xl font-bold mx-auto mb-3">2</p>
+                            <h4 class="font-bold text-lg">정보 입력</h4>
+                            <p class="text-sm mt-1">별도 제출 서류 없이,<br><strong class="brand-red font-bold">신청자 정보만 입력!</strong></p>
+                         </div>
+                         <div class="flowchart-arrow"></div>
+                     </div>
+                     <div class="flowchart-step">
+                         <div class="bg-white p-6 rounded-xl shadow-md h-full flex flex-col justify-center">
+                            <p class="bg-brand-orange text-white w-10 h-10 flex items-center justify-center rounded-full text-xl font-bold mx-auto mb-3">3</p>
+                            <h4 class="font-bold text-lg">신청 완료</h4>
+                            <p class="text-sm mt-1">신청 후 2~3일 내<br>심사 결과 문자 수신</p>
+                         </div>
+                     </div>
+                 </div>
+            </section>
+            
+            <section class="text-center py-6">
+                <a href="https://credit.sbiz24.kr/" target="_blank" class="inline-block bg-brand-orange text-white text-xl font-black px-10 py-5 rounded-lg shadow-lg hover:bg-opacity-90 transform hover:-translate-y-1 transition-all duration-300">
+                    지금 바로 50만원 크레딧 신청하기
+                </a>
+            </section>
+        </main>
+
+        <footer class="p-6 bg-gray-700 text-white text-center rounded-b-lg">
+            <p class="font-bold">다함세무회계사무소</p>
+            <p class="text-sm text-gray-300 mt-1">대표님의 성공적인 사업을 항상 응원합니다.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('benefitChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['정부 지원 크레딧'],
+                    datasets: [{
+                        label: '지원 금액',
+                        data: [500000],
+                        backgroundColor: [
+                            '#00A551',
+                        ],
+                        borderColor: [
+                            '#FFFFFF',
+                        ],
+                        borderWidth: 4,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false
+                        },
+                        title: {
+                            display: true,
+                            text: '50만원 지원',
+                            position: 'bottom',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            },
+                             color: '#333'
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                },
+                 plugins: [{
+                    id: 'doughnutLabel',
+                    beforeDraw: function(chart) {
+                        const { width, height, ctx } = chart;
+                        ctx.restore();
+                        const fontSize = (height / 114).toFixed(2);
+                        ctx.font = `bold ${fontSize}em Noto Sans KR`;
+                        ctx.textBaseline = 'middle';
+                        
+                        const text = '50만원';
+                        const textX = Math.round((width - ctx.measureText(text).width) / 2);
+                        const textY = height / 2;
+                        
+                        ctx.fillStyle = '#00A551';
+                        ctx.fillText(text, textX, textY);
+                        ctx.save();
+                    }
+                }]
+            });
+        });
+    </script>
+</body>
+</html>
